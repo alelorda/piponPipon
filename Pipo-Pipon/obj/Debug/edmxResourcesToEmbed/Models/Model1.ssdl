@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pipopiponModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bebida">
+    <Key>
+      <PropertyRef Name="bebidaId" />
+    </Key>
+    <Property Name="bebidaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bebidaNombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="bebidaPrecio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="cantidad" Type="int" />
+  </EntityType>
+  <EntityType Name="Comida">
+    <Key>
+      <PropertyRef Name="itemId" />
+    </Key>
+    <Property Name="itemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="comidaNombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="comidaPrecio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="cantidad" Type="int" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="empleadoId" />
+    </Key>
+    <Property Name="empleadoId" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombreEmpleado" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrdenDetalles">
+    <Key>
+      <PropertyRef Name="ordenDetalles" />
+    </Key>
+    <Property Name="ordenDetalles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreCliente" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="itemId" Type="int" Nullable="false" />
+    <Property Name="bebidaId" Type="int" Nullable="false" />
+    <Property Name="unitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Empleado_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="id_usuario" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrdenDetalles_Bebida">
+    <End Role="Bebida" Type="Self.Bebida" Multiplicity="1" />
+    <End Role="OrdenDetalles" Type="Self.OrdenDetalles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bebida">
+        <PropertyRef Name="bebidaId" />
+      </Principal>
+      <Dependent Role="OrdenDetalles">
+        <PropertyRef Name="bebidaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrdenDetalles_Comida">
+    <End Role="Comida" Type="Self.Comida" Multiplicity="1" />
+    <End Role="OrdenDetalles" Type="Self.OrdenDetalles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Comida">
+        <PropertyRef Name="itemId" />
+      </Principal>
+      <Dependent Role="OrdenDetalles">
+        <PropertyRef Name="itemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="pipopiponModelStoreContainer">
+    <EntitySet Name="Bebida" EntityType="Self.Bebida" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comida" EntityType="Self.Comida" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrdenDetalles" EntityType="Self.OrdenDetalles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Empleado_Usuario" Association="Self.FK_Empleado_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Empleado" EntitySet="Empleado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrdenDetalles_Bebida" Association="Self.FK_OrdenDetalles_Bebida">
+      <End Role="Bebida" EntitySet="Bebida" />
+      <End Role="OrdenDetalles" EntitySet="OrdenDetalles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrdenDetalles_Comida" Association="Self.FK_OrdenDetalles_Comida">
+      <End Role="Comida" EntitySet="Comida" />
+      <End Role="OrdenDetalles" EntitySet="OrdenDetalles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Menu Principal";
+}
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script></script>
+
+<style>
+    body {
+        background-color: grey;
+    }
+</style>
+
+<fieldset style="border: 1px solid #ddd !important; margin: 0; padding: 10px; position: relative; border-radius: 4px; background-color: #eeeeee; padding-left: 10px !important">
+    <legend style="font-size: 14px; font-weight: bold; margin-bottom: 0px; width: 35%; border: 1px solid #ddd; border-radius: 4px; padding: 5px 5px 5px 10px; background-color:#ffffff;">
+        Agregar Mesa:
+    </legend>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input placeholder="Nombre" type="text" id="txtClienteNuevo" value="" name="UnitPrice" class="form-control" />
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="text-align:center">
+                    <div class="form-group">
+                        <input type="button" value="Agregar" name="AddtoList" id="btnAddClientList" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<br />
+
+<fieldset style="border: 1px solid #ddd !important; margin: 0; padding: 10px; position: relative; border-radius: 4px; background-color: #eeeeee; padding-left: 10px !important">
+    <legend style="font-size: 14px; font-weight: bold; margin-bottom: 0px; width: 35%; border: 1px solid #ddd; border-radius: 4px; padding: 5px 5px 5px 10px; background-color:#ffffff;">
+        Pedido:
+    </legend>
+    <table style="width:100%" id="tblRestaurantList">
+        <thead>
+            <tr>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Total
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+    </table>
+</fieldset>
+
+
+

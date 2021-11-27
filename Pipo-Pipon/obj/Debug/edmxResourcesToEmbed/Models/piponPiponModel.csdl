@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pipopiponModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bebida">
+    <Key>
+      <PropertyRef Name="bebidaId" />
+    </Key>
+    <Property Name="bebidaId" Type="Int32" Nullable="false" />
+    <Property Name="bebidaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="bebidaPrecio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="clienteId" />
+    </Key>
+    <Property Name="clienteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comida">
+    <Key>
+      <PropertyRef Name="itemId" />
+    </Key>
+    <Property Name="itemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="comidaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="comidaPrecio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="empleadoId" />
+    </Key>
+    <Property Name="empleadoId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="nombreEmpleado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orden">
+    <Key>
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="orderId" Type="Int32" Nullable="false" />
+    <Property Name="clienteId" Type="Int32" Nullable="false" />
+    <Property Name="orderNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="OrdenDetalles" Relationship="Self.FK_OrdenDetalles_Orden" FromRole="Orden" ToRole="OrdenDetalles" />
+  </EntityType>
+  <EntityType Name="OrdenDetalle">
+    <Key>
+      <PropertyRef Name="ordenDetalles" />
+    </Key>
+    <Property Name="ordenDetalles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ordenId" Type="Int32" Nullable="false" />
+    <Property Name="itemId" Type="Int32" Nullable="false" />
+    <Property Name="unitPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Orden" Relationship="Self.FK_OrdenDetalles_Orden" FromRole="OrdenDetalles" ToRole="Orden" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="id_usuario" Type="Int32" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_OrdenDetalles_Orden">
+    <End Role="Orden" Type="Self.Orden" Multiplicity="1" />
+    <End Role="OrdenDetalles" Type="Self.OrdenDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orden">
+        <PropertyRef Name="orderId" />
+      </Principal>
+      <Dependent Role="OrdenDetalles">
+        <PropertyRef Name="ordenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="pipopiponEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bebidas" EntityType="Self.Bebida" />
+    <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+    <EntitySet Name="Comidas" EntityType="Self.Comida" />
+    <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
+    <EntitySet Name="Ordens" EntityType="Self.Orden" />
+    <EntitySet Name="OrdenDetalles" EntityType="Self.OrdenDetalle" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK_OrdenDetalles_Orden" Association="Self.FK_OrdenDetalles_Orden">
+      <End Role="Orden" EntitySet="Ordens" />
+      <End Role="OrdenDetalles" EntitySet="OrdenDetalles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

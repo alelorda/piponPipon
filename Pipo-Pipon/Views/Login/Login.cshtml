@@ -1,0 +1,73 @@
+﻿@model Pipo_Pipon.Models.Usuario
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayaoutLogin.cshtml";
+}
+<!--
+<center>
+    <fieldset>
+        <h2><b>Login</b></h2>
+        <hr />
+    </fieldset>
+
+    <table>
+    </table>
+
+
+
+    <div class="sarasa">
+        <div class="formLogin">
+            <input placeholder="Usuario" style="width:100%" textmode="Email" /><br />
+            <input placeholder="Contraseña" style="width:100%; margin-top:10px" textmode="Email" /><br />
+             <b><input type="submit" class="accederbtn" style="background-color: #4CAF50; color: white; cursor: pointer; margin-top: 10px; width:100% " value="Acceder" /></b><br />
+             <b><input type="submit" class="Button2" style="background-color: #ec3f3f; margin-top: 5px; color: white; cursor: pointer; width: 50% " value="Recuperar Contraseña" /></b>
+        </div>
+    </div>
+</center>
+-->
+<style>
+    body {
+        background-color: #282c34;
+    }
+</style>
+
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+ {
+    <center>
+    <fieldset>
+        <h2><b>LOGIN</b></h2>
+        <hr />
+    </fieldset>
+
+    <fieldset>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (ViewBag.Message != null)
+        {
+            <div style="border: 1px solid red">
+                @ViewBag.Message
+            </div>}
+
+    <div class="sarasa">
+        <tr>
+            <td><input placeholder="Usuario" style="width:100%; color:#282c34" @Html.TextBoxFor(a => a.username)</td>
+            <br />
+            <td>@Html.ValidationMessageFor(a => a.username)</td>
+            <td><input placeholder="Contraseña" style="width:100%; margin-top:10px; color:#282c34 " @Html.PasswordFor(a => a.password) </td>
+           
+            <td>@Html.ValidationMessageFor(a => a.password)</td>
+        </tr>
+    </div>
+    <tr>
+        <td></td>
+        <td>
+            <b><input type="submit" class="accederbtn" style="background-color: #4CAF50; color: white; cursor: pointer; margin-top: 10px; width:100% " value="Acceder" /></b><br />
+        </td>
+        <td></td>
+        <!--<td>
+        <b><input type="submit" class="Button2" style="background-color: #ec3f3f; margin-top: 5px; color: white; cursor: pointer; width: 50% " value="Recuperar Contraseña" /></b>
+    </td>-->
+    </tr>
+    </fieldset>
+    </center>
+}

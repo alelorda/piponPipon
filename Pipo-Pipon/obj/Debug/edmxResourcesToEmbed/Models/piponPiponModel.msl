@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="pipopiponModelStoreContainer" CdmEntityContainer="pipopiponEntities">
+    <EntitySetMapping Name="Bebidas">
+      <EntityTypeMapping TypeName="pipopiponModel.Bebida">
+        <MappingFragment StoreEntitySet="Bebida">
+          <ScalarProperty Name="bebidaId" ColumnName="bebidaId" />
+          <ScalarProperty Name="bebidaNombre" ColumnName="bebidaNombre" />
+          <ScalarProperty Name="bebidaPrecio" ColumnName="bebidaPrecio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="pipopiponModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+          <ScalarProperty Name="nombreCliente" ColumnName="nombreCliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comidas">
+      <EntityTypeMapping TypeName="pipopiponModel.Comida">
+        <MappingFragment StoreEntitySet="Comida">
+          <ScalarProperty Name="itemId" ColumnName="itemId" />
+          <ScalarProperty Name="comidaNombre" ColumnName="comidaNombre" />
+          <ScalarProperty Name="comidaPrecio" ColumnName="comidaPrecio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleadoes">
+      <EntityTypeMapping TypeName="pipopiponModel.Empleado">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="empleadoId" ColumnName="empleadoId" />
+          <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ordens">
+      <EntityTypeMapping TypeName="pipopiponModel.Orden">
+        <MappingFragment StoreEntitySet="Orden">
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+          <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrdenDetalles">
+      <EntityTypeMapping TypeName="pipopiponModel.OrdenDetalle">
+        <MappingFragment StoreEntitySet="OrdenDetalles">
+          <ScalarProperty Name="ordenDetalles" ColumnName="ordenDetalles" />
+          <ScalarProperty Name="ordenId" ColumnName="ordenId" />
+          <ScalarProperty Name="itemId" ColumnName="itemId" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="pipopiponModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

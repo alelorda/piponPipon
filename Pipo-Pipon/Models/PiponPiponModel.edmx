@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="pipopiponModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bebida">
+          <Key>
+            <PropertyRef Name="bebidaId" />
+          </Key>
+          <Property Name="bebidaId" Type="int" Nullable="false" />
+          <Property Name="bebidaNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bebidaPrecio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="clienteId" />
+          </Key>
+          <Property Name="clienteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreCliente" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comida">
+          <Key>
+            <PropertyRef Name="itemId" />
+          </Key>
+          <Property Name="itemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comidaNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="comidaPrecio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="empleadoId" />
+          </Key>
+          <Property Name="empleadoId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombreEmpleado" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orden">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="clienteId" Type="int" Nullable="false" />
+          <Property Name="orderNumber" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="orderDate" Type="datetime" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdenDetalles">
+          <Key>
+            <PropertyRef Name="ordenDetalles" />
+          </Key>
+          <Property Name="ordenDetalles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ordenId" Type="int" Nullable="false" />
+          <Property Name="itemId" Type="int" Nullable="false" />
+          <Property Name="unitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Empleado_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenDetalles_Orden">
+          <End Role="Comida" Type="Self.Comida" Multiplicity="1" />
+          <End Role="OrdenDetalles" Type="Self.OrdenDetalles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comida">
+              <PropertyRef Name="itemId" />
+            </Principal>
+            <Dependent Role="OrdenDetalles">
+              <PropertyRef Name="itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pipopiponModelStoreContainer">
+          <EntitySet Name="Bebida" EntityType="Self.Bebida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comida" EntityType="Self.Comida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orden" EntityType="Self.Orden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenDetalles" EntityType="Self.OrdenDetalles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Empleado_Usuario" Association="Self.FK_Empleado_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenDetalles_Orden" Association="Self.FK_OrdenDetalles_Orden">
+            <End Role="Comida" EntitySet="Comida" />
+            <End Role="OrdenDetalles" EntitySet="OrdenDetalles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pipopiponModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bebida">
+          <Key>
+            <PropertyRef Name="bebidaId" />
+          </Key>
+          <Property Name="bebidaId" Type="Int32" Nullable="false" />
+          <Property Name="bebidaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bebidaPrecio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="clienteId" />
+          </Key>
+          <Property Name="clienteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comida">
+          <Key>
+            <PropertyRef Name="itemId" />
+          </Key>
+          <Property Name="itemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comidaNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="comidaPrecio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="OrdenDetalles" Relationship="Self.FK_OrdenDetalles_Orden" FromRole="Comida" ToRole="OrdenDetalles" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="empleadoId" />
+          </Key>
+          <Property Name="empleadoId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="nombreEmpleado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Empleado_Usuario" FromRole="Empleado" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Orden">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="clienteId" Type="Int32" Nullable="false" />
+          <Property Name="orderNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdenDetalle">
+          <Key>
+            <PropertyRef Name="ordenDetalles" />
+          </Key>
+          <Property Name="ordenDetalles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ordenId" Type="Int32" Nullable="false" />
+          <Property Name="itemId" Type="Int32" Nullable="false" />
+          <Property Name="unitPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="quantity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Comida" Relationship="Self.FK_OrdenDetalles_Orden" FromRole="OrdenDetalles" ToRole="Comida" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Empleadoes" Relationship="Self.FK_Empleado_Usuario" FromRole="Usuario" ToRole="Empleado" />
+        </EntityType>
+        <Association Name="FK_OrdenDetalles_Orden">
+          <End Role="Comida" Type="Self.Comida" Multiplicity="1" />
+          <End Role="OrdenDetalles" Type="Self.OrdenDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comida">
+              <PropertyRef Name="itemId" />
+            </Principal>
+            <Dependent Role="OrdenDetalles">
+              <PropertyRef Name="itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empleado_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pipopiponEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bebidas" EntityType="Self.Bebida" />
+          <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+          <EntitySet Name="Comidas" EntityType="Self.Comida" />
+          <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
+          <EntitySet Name="Ordens" EntityType="Self.Orden" />
+          <EntitySet Name="OrdenDetalles" EntityType="Self.OrdenDetalle" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_OrdenDetalles_Orden" Association="Self.FK_OrdenDetalles_Orden">
+            <End Role="Comida" EntitySet="Comidas" />
+            <End Role="OrdenDetalles" EntitySet="OrdenDetalles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleado_Usuario" Association="Self.FK_Empleado_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Empleado" EntitySet="Empleadoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pipopiponModelStoreContainer" CdmEntityContainer="pipopiponEntities1">
+          <EntitySetMapping Name="Bebidas">
+            <EntityTypeMapping TypeName="pipopiponModel.Bebida">
+              <MappingFragment StoreEntitySet="Bebida">
+                <ScalarProperty Name="bebidaId" ColumnName="bebidaId" />
+                <ScalarProperty Name="bebidaNombre" ColumnName="bebidaNombre" />
+                <ScalarProperty Name="bebidaPrecio" ColumnName="bebidaPrecio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="pipopiponModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+                <ScalarProperty Name="nombreCliente" ColumnName="nombreCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comidas">
+            <EntityTypeMapping TypeName="pipopiponModel.Comida">
+              <MappingFragment StoreEntitySet="Comida">
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="comidaNombre" ColumnName="comidaNombre" />
+                <ScalarProperty Name="comidaPrecio" ColumnName="comidaPrecio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleadoes">
+            <EntityTypeMapping TypeName="pipopiponModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="empleadoId" ColumnName="empleadoId" />
+                <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ordens">
+            <EntityTypeMapping TypeName="pipopiponModel.Orden">
+              <MappingFragment StoreEntitySet="Orden">
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+                <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenDetalles">
+            <EntityTypeMapping TypeName="pipopiponModel.OrdenDetalle">
+              <MappingFragment StoreEntitySet="OrdenDetalles">
+                <ScalarProperty Name="ordenDetalles" ColumnName="ordenDetalles" />
+                <ScalarProperty Name="ordenId" ColumnName="ordenId" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="pipopiponModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

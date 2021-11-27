@@ -1,0 +1,45 @@
+﻿@model Pipo_Pipon.Models.Comida
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center>
+    <h2><b>Detalles</b></h2>
+</center>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.comidaNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comidaNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comidaPrecio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comidaPrecio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.itemId }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

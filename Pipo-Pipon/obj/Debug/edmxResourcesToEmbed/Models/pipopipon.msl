@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="pipopiponModelStoreContainer" CdmEntityContainer="pipopiponEntities">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="pipopiponModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="nombreCliente" ColumnName="nombreCliente" />
+          <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="pipopiponModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleadoes">
+      <EntityTypeMapping TypeName="pipopiponModel.Empleado">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="nombreEmpleado" ColumnName="nombreEmpleado" />
+          <ScalarProperty Name="empleadoId" ColumnName="empleadoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Productoes">
+      <EntityTypeMapping TypeName="pipopiponModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="itemPrecio" ColumnName="itemPrecio" />
+          <ScalarProperty Name="itemNombre" ColumnName="itemNombre" />
+          <ScalarProperty Name="itemId" ColumnName="itemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

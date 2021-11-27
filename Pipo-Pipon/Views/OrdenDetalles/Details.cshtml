@@ -1,0 +1,93 @@
+﻿@model Pipo_Pipon.Models.OrdenDetalle
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center>
+    <h2><b>Detalles</b></h2>
+</center>
+
+<div id="parentDiv">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.unitPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.unitPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bebida.bebidaNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bebida.bebidaNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comida.comidaNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comida.comidaNombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ordenDetalles }) |
+    @Html.ActionLink("Volver", "Index")
+</p>
+@Html.ActionLink("Generar PDF", "GenerarPdf", new { id = Model.ordenDetalles})
+@section scripts{
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Escuchamos el click del botón
+            const $boton = document.querySelector("#btnCrearPdf");
+            $boton.addEventListener("click", () => {
+                const $elementoParaConvertir = document.body; // <-- Aquí puedes elegir cualquier elemento del DOM
+                html2pdf()
+                    .set({
+                        margin: 1,
+                        filename: 'documento.pdf',
+                        image: {
+                            type: 'jpeg',
+                            quality: 0.98
+                        },
+                        html2canvas: {
+                            scale: 3, // A mayor escala, mejores gráficos, pero más peso
+                            letterRendering: true,
+                        },
+                        jsPDF: {
+                            unit: "in",
+                            format: "a3",
+                            orientation: 'portrait' // landscape o portrait
+                        }
+                    })
+                    .from($elementoParaConvertir)
+                    .save()
+                    .catch(err => console.log(err));
+            });
+        });
+    </script>
+}

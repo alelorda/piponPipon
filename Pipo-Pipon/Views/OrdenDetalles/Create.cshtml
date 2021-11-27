@@ -1,0 +1,141 @@
+﻿@model Pipo_Pipon.Models.OrdenDetalle
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+    var totalComida = 0;
+    var totalBebida = 0.00;
+    var descuento = 0;
+    console.log(totalBebida);
+    $(document).ready(function () {
+        $("#txtComida").val(0);
+        $("#txtComida").change(function () {
+            var itemId = parseInt($("#txtComida").val());
+            GetPrecioComida(itemId);
+        });
+
+        $("#txtBebida").val(0);
+        $("#txtBebida").change(function () {
+            var itemId = parseInt($("#txtBebida").val());
+            GetPrecioBebida(itemId);
+        });
+        $("#txtDescuento").val();
+        $("#txtDescuento").change(function () {
+            descuento = parseInt($("#txtDescuento").val());
+            CalcularTotal()
+        });
+    });
+
+    function GetPrecioComida(itemId) {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: { itemId: itemId },
+            url: '/home/getPrecioComida',
+            success: function (data) {
+                totalComida = data;
+                parseFloat(totalComida).toFixed(2);
+                CalcularTotal();
+            },
+            error: function () {
+                alert('Problemas....')
+            }
+        })
+    }
+
+    function GetPrecioBebida(itemId) {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: { itemId: itemId },
+            url: '/home/getPrecioBebida',
+            success: function (data) {
+                totalBebida = data;
+                parseFloat(totalBebida).toFixed(2);
+                CalcularTotal();
+            },
+            error: function () {
+                alert('Problemas....')
+            }
+        })
+    }
+
+    function CalcularTotal() {
+
+        console.log(descuento)
+        var total = totalComida + totalBebida - descuento;
+        console.log(total);
+        $("#txtTotalComida").val(parseFloat(total).toFixed(2));
+    }
+
+</script>
+
+<center>
+    <h2>Agregar Cliente</h2>
+</center>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombreCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nombreCliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.nombreCliente, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.itemId, "Comida:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("itemId", null, htmlAttributes: new { @class = "form-control", id = "txtComida" })
+            @Html.ValidationMessageFor(model => model.itemId, "", new { @class = "text-danger", id = "txtComida" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.bebidaId, "Bebida:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("bebidaId", null, htmlAttributes: new { @class = "form-control", id = "txtBebida" })
+            @Html.ValidationMessageFor(model => model.bebidaId, "", new { @class = "text-danger", id = "txtBebida" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.unitPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.unitPrice, new { htmlAttributes = new { @class = "form-control", id = "txtDescuento" } })
+            @Html.ValidationMessageFor(model => model.unitPrice, "", new { @class = "text-danger", id = "txtDescuento" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.total, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.total, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", id = "txtTotalComida" } })
+            @Html.ValidationMessageFor(model => model.total, "", new { @class = "text-danger", @readonly = "readonly", id = "txtTotalComida" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Crear" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Pipo_Pipon.Models.Bebida>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<center>
+    <h2><b>BEBIDAS</b></h2>
+
+    <p>
+        @Html.ActionLink("Agregar Bebida", "Create")
+    </p>
+</center>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.bebidaNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bebidaPrecio)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.bebidaNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bebidaPrecio)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.bebidaId }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.bebidaId }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.bebidaId })
+        </td>
+    </tr>
+}
+
+</table>
